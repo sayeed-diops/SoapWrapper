@@ -9,7 +9,7 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 
-@WebService(endpointInterface = "com.diops.soapwrapper.GetChunckService")
+@WebService()
 public class GetChunckServiceImpl {
 
     @WebMethod

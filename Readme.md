@@ -145,3 +145,15 @@ Create a channel in Mirth with the following:
 - **Context Path**: /receiveChunk
 - **Data Type**: XML
 - **Transformer**: Return a mock Base64 PDF or appropriate chunk response
+
+
+# Start Application
+ - SoapWrapper
+```bash
+mvn clean package
+mvn exec:java -Dexec.mainClass="com.example.soapwrapper.SoapWrapperApplication"
+```
+- SoapEndpoint
+```bash
+mvn exec:java -Dexec.mainClass="com.diops.soapwrapper.SoapServer"
+```

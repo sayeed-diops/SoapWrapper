@@ -1,0 +1,17 @@
+# Ignore java build files
+*.class
+*.jar
+*.war
+target/
+# Ignore logs and log files
+*.log
+logs/
+# Ignore IDE files
+*.iml
+.idea/
+.vscode/
+# Ignore Maven files
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
