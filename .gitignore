@@ -3,6 +3,7 @@
 *.jar
 *.war
 target/
+target
 # Ignore logs and log files
 *.log
 logs/
