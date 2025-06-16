@@ -39,85 +39,13 @@ soap-wrapper/
 </dependencies>
 ```
 
-## 4. Java Code (with Mirth Forwarding)
-
-### SoapWrapperApplication.java
-
-```java
-package com.example.soapwrapper;
-
-import jakarta.xml.ws.Endpoint;
-
-public class SoapWrapperApplication {
-    public static void main(String[] args) {
-        Endpoint.publish("http://localhost:8080/ws/getPdfChunk", new SoapEndpoint());
-        System.out.println("SOAP endpoint published at /ws/getPdfChunk");
-    }
-}
-```
-
-### SoapEndpoint.java
-
-```java
-package com.example.soapwrapper;
-
-import jakarta.jws.WebMethod;
-import jakarta.jws.WebParam;
-import jakarta.jws.WebService;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-
-@WebService(targetNamespace = "http://health.fgov.be/telematics/rsw/cosite/2.0/")
-public class SoapEndpoint {
-
-    @WebMethod(operationName = "GetChunck")
-    public String getPdfChunk(
-        @WebParam(name = "TransactionID") String transactionId,
-        @WebParam(name = "Lnk") String lnk,
-        @WebParam(name = "ChunckID") String chunkId,
-        @WebParam(name = "Offset") int offset,
-        @WebParam(name = "BufferSize") int bufferSize,
-        @WebParam(name = "LnkSize") int lnkSize,
-        @WebParam(name = "TimeoutEnSecondes") int timeoutSeconds
-    ) {
-        try {
-            String mirthXml = "<GetChunck>" +
-                "<TransactionID>" + transactionId + "</TransactionID>" +
-                "<Lnk>" + lnk + "</Lnk>" +
-                "<ChunckID>" + chunkId + "</ChunckID>" +
-                "<Offset>" + offset + "</Offset>" +
-                "<BufferSize>" + bufferSize + "</BufferSize>" +
-                "<LnkSize>" + lnkSize + "</LnkSize>" +
-                "<TimeoutEnSecondes>" + timeoutSeconds + "</TimeoutEnSecondes>" +
-                "</GetChunck>";
-
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI("http://localhost:8090/receiveChunk"))
-                .header("Content-Type", "application/xml")
-                .POST(HttpRequest.BodyPublishers.ofString(mirthXml))
-                .build();
-
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-            return response.body();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "<error>" + e.getMessage() + "</error>";
-        }
-    }
-}
-```
-
-## 5. WSDL URL
+## 4. WSDL URL
 
 After running the application, access the WSDL via:
 
-`http://localhost:8080/ws/getPdfChunk?wsdl`
+`http://localhost:8080/services/getChunk?wsdl`
 
-## 6. Sample SOAP Request
+## 5. Sample SOAP Request
 
 ```xml
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://health.fgov.be/telematics/rsw/cosite/2.0/">
@@ -136,77 +64,7 @@ After running the application, access the WSDL via:
 </soapenv:Envelope>
 ```
 
-# 7. GetChunckSEviceImple
-
-```java
-package com.diops.soapwrapper;
-
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-
-import jakarta.jws.WebMethod;
-import jakarta.jws.WebParam;
-import jakarta.jws.WebService;
-
-@WebService()
-public class GetChunckServiceImpl {
-
-    @WebMethod
-    public String GetChunck(
-            @WebParam(name = "TransactionID") String transactionId,
-            @WebParam(name = "Lnk") String lnk,
-            @WebParam(name = "ChunckID") String chunkId,
-            @WebParam(name = "Offset") int offset,
-            @WebParam(name = "BufferSize") int bufferSize,
-            @WebParam(name = "LnkSize") int lnkSize,
-            @WebParam(name = "TimeoutEnSecondes") int timeout) {
-        try {
-            String json = "{"
-                    + "\"transactionId\":\"" + transactionId + "\","
-                    + "\"lnk\":\"" + lnk + "\","
-                    + "\"chunkId\":\"" + chunkId + "\","
-                    + "\"offset\":" + offset + ","
-                    + "\"bufferSize\":" + bufferSize + ","
-                    + "\"lnkSize\":" + lnkSize + ","
-                    + "\"timeout\":" + timeout
-                    + "}";
-
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("http://localhost:8081/api/getChunk"))
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(json))
-                    .build();
-
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            return response.body();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "{\"error\":\"" + e.getMessage() + "\"}";
-        }
-    }
-}
-```
-
-## 8. SOAP Server
-
-```java
-package com.diops.soapwrapper;
-
-import jakarta.xml.ws.Endpoint;
-
-public class SoapServer {
-    public static void main(String[] args) {
-        Endpoint.publish("http://localhost:8082/services/getChunk", new GetChunckServiceImpl());
-        System.out.println("SOAP Service started at http://localhost:8080/services/getChunk?wsdl");
-    }
-}
-```
-
-## 9. Mirth REST Listener Setup
+## 6. Mirth REST Listener Setup
 
 Create a channel in Mirth with the following:
 
@@ -216,7 +74,7 @@ Create a channel in Mirth with the following:
 - **Data Type**: XML
 - **Transformer**: Return a mock Base64 PDF or appropriate chunk response
 
-# Start Application
+# 7. Start Application
 
 - SoapWrapper
 
