@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:ns="http://soapwrapper.diops.com/">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <ns:GetChunck>
+            <ns:TransactionID>TEST123</ns:TransactionID>
+            <ns:Lnk>PDF123</ns:Lnk>
+            <ns:ChunckID>1</ns:ChunckID>
+            <ns:Offset>0</ns:Offset>
+            <ns:BufferSize>1024</ns:BufferSize>
+            <ns:LnkSize>4096</ns:LnkSize>
+            <ns:TimeoutEnSecondes>30</ns:TimeoutEnSecondes>
+        </ns:GetChunck>
+    </soapenv:Body>
+</soapenv:Envelope>
