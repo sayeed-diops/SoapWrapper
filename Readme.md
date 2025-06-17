@@ -1,6 +1,6 @@
 # SOAP Wrapper Java Service - Full Implementation Guide
 
-This guide walks you through creating a lightweight SOAP web service in Java that listens for requests on an operation called `getPdfChunk`, forwards the payload to Mirth Connect via REST, and returns Mirth's response.
+This guide walks you through creating a lightweight SOAP web service in Java that listens for requests on an operation called `getChunk`, forwards the payload to Mirth Connect via REST, and returns Mirth's response.
 
 ## 1. Prerequisites
 
