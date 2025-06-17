@@ -59,7 +59,6 @@ public class GetChunckServiceImpl {
                         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
                         System.out.println("Received response from Mirth with status code: " + response.statusCode());
-                        System.out.println("Response body: " + response.body());
 
                         String soapResponse = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                                         "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">" +
