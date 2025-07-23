@@ -1,0 +1,62 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:ns="http://health.fgov.be/telematics/rsw/cosite/2.0/"
+    xmlns:tem="http://tempuri.org">
+
+    <soapenv:Header/>
+    <soapenv:Body>
+        <ns:TransactionList>
+            <!--Optional:-->
+            <ns:Requete>
+                <!--Optional:-->
+                <tem:request>
+                    <!--Optional:-->
+                    <tem:id S="ID-KMEHR" SV="1.0" SL="">REQ20002</tem:id>
+                    <!--Optional:-->
+                    <tem:author>
+                        <!--Zero or more repetitions:-->
+                        <tem:hcparty>
+                            <!--Zero or more repetitions:-->
+                            <tem:id S="ID-HCPARTY" SV="1.0" SL="">946</tem:id>
+                            <!--Zero or more repetitions:-->
+                            <tem:cd S="CD-HCPARTY" SV="1.0" SL="" DN="" L="">orghospital</tem:cd>
+                            <!--Optional:-->
+                            <tem:firstname></tem:firstname>
+                            <!--Optional:-->
+                            <tem:familyname></tem:familyname>
+                            <!--Optional:-->
+                            <tem:name>Clinique Neuro-Psychiatrique de Bonsecours</tem:name>
+                        </tem:hcparty>
+                        <tem:hcparty>
+                            <!--Zero or more repetitions:-->
+                            <tem:id S="ID-HCPARTY" SV="1.0" SL="">17894555412</tem:id>
+                            <!--Zero or more repetitions:-->
+                            <tem:cd S="CD-HCPARTY" SV="1.0" SL="" DN="" L="">persphysician</tem:cd>
+                            <!--Optional:-->
+                            <tem:firstname>Abrumet</tem:firstname>
+                            <!--Optional:-->
+                            <tem:familyname>B</tem:familyname>
+                            <!--Optional:-->
+                            <tem:name></tem:name>
+                        </tem:hcparty>
+                    </tem:author>
+                    <!--Optional:-->
+                </tem:request>
+                <!--Optional:-->
+                <tem:select>
+                    <!--Optional:-->
+                    <tem:patient>
+                        <!--Optional:-->
+                        <tem:id S="ID-PATIENT" SV="1.0" SL="">88080899884</tem:id>
+                    </tem:patient>
+                    <!--Optional:-->
+                    <tem:transaction>
+                        <!--Zero or more repetitions:-->
+                        <tem:cd S="CD-TRANSACTION" SV="1.0" SL="" DN="" L="">*</tem:cd>
+                    </tem:transaction>
+                </tem:select>
+            </ns:Requete>
+            <ns:TimeoutEnSecondes>60</ns:TimeoutEnSecondes>
+            <!-- <ns:TimeoutEnSecondes>30.0</ns:TimeoutEnSecondes> -->
+        </ns:TransactionList>
+    </soapenv:Body>
+</soapenv:Envelope>
